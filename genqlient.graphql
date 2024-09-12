@@ -1,0 +1,93 @@
+query queryUid($name: String!){
+              User(name: $name){
+                id
+                name
+              }
+            }
+
+query queryRecentActv($userId: Int, $createdAt_greater: Int){
+            Page(page:1, perPage:10) {
+              activities(type_in: [MANGA_LIST, ANIME_LIST], userId: $userId, createdAt_greater: $createdAt_greater){
+                ... on ListActivity {
+                  id
+                  media{
+                    title{
+                      romaji
+                    }
+                  }
+                  progress
+                  status
+                  createdAt
+                  siteUrl
+                }
+              }
+            }
+          }
+
+query queryFavAnime($uid: Int){
+              User(id: $uid){
+                id
+                favourites{
+                  anime{
+                    nodes{
+                      id
+                      title{
+                        romaji
+                      }
+                      seasonYear
+                      coverImage{
+                        large
+                        color
+                      }
+                      siteUrl
+                    }
+                  }
+                }
+              }
+            }
+
+query queryFavManga($uid: Int){
+              User(id: $uid){
+                id
+                favourites{
+                  manga{
+                    nodes{
+                      id
+                      title{
+                        romaji
+                      }
+                      startDate{
+                        year
+                      }
+                      coverImage{
+                        large
+                        color
+                      }
+                      siteUrl
+                    }
+                  }
+                }
+              }
+            }
+
+query queryFavChara($uid: Int){
+              User(id: $uid){
+                id
+                favourites{
+                  characters{
+                    nodes{
+                      id
+                      name{
+                        last
+                        first
+                      }
+                      gender
+                      image{
+                        large
+                      }
+                      siteUrl
+                    }
+                  }
+                }
+              }
+            }
